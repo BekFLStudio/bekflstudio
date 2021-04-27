@@ -17,6 +17,12 @@ db()
 
 var app = express();
 
+const config = require('./config');
+
+app.set('api_secret_key', config.api_secret_key);
+
+const tokenverify = require('./middleware/token-verify')
+
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
@@ -29,6 +35,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
+app.use('/api/music', tokenverify);
 app.use('/music', musicRouter);
 app.use('/director', directorRouter);
 
