@@ -23,19 +23,19 @@ router.post('/register', function(req, res, next) {
       username,
       password: hash
     })
-    
-  })
-
-  const promise = user.save();
+     const promise = user.save();
   promise.then(data => res.json(data))
   .catch(err => {
     console.log(err)
   });
+  })
+
+ 
 
 });
 
 /* POST authenticate */
-router.get('/authenticate', function(req, res, next) {
+router.post('/authenticate', function(req, res, next) {
   const {username, password} = req.body;
 
   Users.findOne({username}, (err, user) => {
